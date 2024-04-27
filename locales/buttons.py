@@ -1,12 +1,14 @@
 auth = {
     "uk": {
-        "reg": "Реєстрація",
-        "auth": "Авторизація",
-        "continue": "Продовжити"
+        "reg": "Реєстрація🏛",
+        "auth": "Авторизація👤",
+        "back": "Назад⬅️"
     },
     "en": {
-        "reg": "Registration",
-        "auth": "Authorization",
-        "continue": "Сontinue"
+        "reg": "Registration🏛",
+        "auth": "Authorization👤",
+        "back": "Back⬅️"
     }
 }
+
+
