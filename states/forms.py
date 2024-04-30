@@ -27,3 +27,4 @@ async def get_user_number(msg: types.Message, state: FSMContext):
         db.update_phone_number(msg.from_user.id, msg.text)
         await state.clear()
         await msg.answer(messages.success_registration[locale], reply_markup=reply.gen_menu())
+
