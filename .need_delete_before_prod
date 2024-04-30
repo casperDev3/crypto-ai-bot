@@ -1,0 +1,3 @@
+DB
+psql -h db-postgresql-nyc3-crypto-bot-ai-do-user-14569518-0.c.db.ondigitalocean.com  -p 25060 -U doadmin -d defaultdb
+AVNS_5IWnjO3mhBd_dSST_Af
