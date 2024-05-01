@@ -29,7 +29,8 @@ def gen_menu():
         keyboard=[
             [KeyboardButton(text="Підписки"),
              KeyboardButton(text="Сигнали")],
-            [KeyboardButton(text="Про нас")]
+            [KeyboardButton(text="Про нас")],
+            [KeyboardButton(text="Підтримка")],
         ],
         resize_keyboard=True
     )

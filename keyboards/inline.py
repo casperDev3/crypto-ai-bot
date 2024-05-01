@@ -11,3 +11,19 @@ def plan_menu():
              InlineKeyboardButton(text="Контакти", callback_data="plan_contacts")]
         ]
     )
+
+
+def update_subscription():
+    return InlineKeyboardMarkup(
+        inline_keyboard=[
+            [InlineKeyboardButton(text="Змінити", callback_data="update_subscription"),
+             InlineKeyboardButton(text="Скасувати", callback_data="cancel_subscription")]
+        ]
+    )
+
+
+def select_subscription_type(types: list):
+    buttons = []
+    for item in types:
+        buttons.append([InlineKeyboardButton(text=item[1], callback_data=f"select_subscription_{item[0]}")])
+    return InlineKeyboardMarkup(inline_keyboard=buttons)

@@ -1,7 +1,7 @@
 import psycopg2
 from aiogram import Dispatcher, Bot
 
-TOKEN = "7122875435:AAHDHh1PjOUWyBXuWiXI0SqanAg8ajRs3Ck"
+TOKEN = "6360343069:AAGWRCbHC4RmeT8rPrzpF3HPJqMLQymx0dc"
 
 # Database connection settings
 DB_HOST = "db-postgresql-nyc3-crypto-bot-ai-do-user-14569518-0.c.db.ondigitalocean.com"
