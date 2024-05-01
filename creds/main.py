@@ -16,6 +16,5 @@ bot = Bot(TOKEN)
 # Connection to database
 print("Connecting to database...")
 conn = psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASS, host=DB_HOST, port="25060")
-print(conn)
 cursor = conn.cursor()
-print("Connected to database!")
+print("Connected to database")
