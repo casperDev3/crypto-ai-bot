@@ -1,8 +1,27 @@
 from aiogram import types
 from keyboards import inline, reply
 from creds import main
+from db import main as db
 
 dp = main.dp
+
+
+@dp.callback_query(lambda c: c.data.startswith("select_subscription_"))
+async def select_subscription(callback_query: types.CallbackQuery):
+    print(callback_query)
+    data = callback_query.data
+    cid = callback_query.from_user.id
+    msg_id = callback_query.message.message_id
+    subscription_id = data.split("_")[2]
+    print(subscription_id)
+    result = db.update_subscription(cid, subscription_id)
+    if result:
+        await main.bot.edit_message_text("Підписка успішно змінена", cid, msg_id)
+    else:
+        await main.bot.edit_message_text("Помилка", cid, msg_id)
+
+    await main.bot.delete_message(cid, msg_id)
+
 
 
 @dp.callback_query(lambda c: c.data)
@@ -10,31 +29,17 @@ async def courses(callback_query: types.CallbackQuery):
     data = callback_query.data
     cid = callback_query.from_user.id
     msg_id = callback_query.message.message_id
-    if data == "plan_python_core":
-        # await main.bot.send_message(cid, "Program Python: ")
-        await main.bot.edit_message_text(
-            text="Program Python: https://drohobych.itstep.org/",
-            chat_id=cid,
-            message_id=msg_id,
-            reply_markup=inline.plan_menu(),
-            disable_web_page_preview=True
-        )
-    elif data == "plan_html_css":
-        await main.bot.edit_message_text(
-            text="HTML Program: https://drohobych.itstep.org/",
-            chat_id=cid,
-            message_id=msg_id,
-            reply_markup=inline.plan_menu(),
-            disable_web_page_preview=True
-        )
-    elif data == "plan_next14":
-        await main.bot.edit_message_text(
-            text="NEXT.js 14 Program: https://drohobych.itstep.org/",
-            chat_id=cid,
-            message_id=msg_id,
-            reply_markup=inline.plan_menu(),
-            disable_web_page_preview=True
-        )
-    elif data == "plan_contacts":
-        await main.bot.delete_message(chat_id=cid, message_id=msg_id)
-        await main.bot.send_message(cid, "Ви відкрили підменю контакти", reply_markup=reply.sub_contacts())
+    if data == "update_subscription":
+        all_payments_subscriptions = db.get_paid_subscriptions()
+        txt = "Оберіть підписку:\n"
+        for item in all_payments_subscriptions:
+            txt += f"{item[1]} - {item[2]}\n"
+
+        await main.bot.send_message(cid, txt, reply_markup=inline.select_subscription_type(all_payments_subscriptions))
+    elif data == "cancel_subscription":
+        result = db.cancel_subscription(cid)
+        if result:
+            await main.bot.edit_message_text("Підписка скасована", cid, msg_id)
+        else:
+            await main.bot.edit_message_text("Помилка", cid, msg_id)
+#  select_subscription_{item[0]}- this is a callback_data for each subscription
